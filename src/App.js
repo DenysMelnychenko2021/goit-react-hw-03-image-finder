@@ -1,25 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { Component } from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { SearchBar } from 'components/searchBar';
+import { ImageGallery } from 'components/imageGallery';
+import { Modal } from 'components/modal';
+
+export class App extends Component {
+  state = {
+    query: '',
+    nextPage: 1,
+    showModal: false,
+    largeImg: '',
+  };
+
+  handleFormSubmit = search => {
+    this.setState({ query: search });
+  };
+
+  handleButton = () => {
+    this.setState(({ nextPage }) => ({
+      nextPage: nextPage + 1,
+    }));
+  };
+
+  toggleModal = () => {
+    this.setState(({ showModal }) => ({ showModal: !showModal }));
+  };
+
+  showLargeImg = largeImg => {
+    this.setState({ largeImg });
+    this.toggleModal();
+  };
+
+  render() {
+    const { handleFormSubmit, toggleModal, showLargeImg, handleButton } = this;
+    const { query, nextPage, showModal, largeImg } = this.state;
+
+    return (
+      <div>
+        <SearchBar submitFormFinder={handleFormSubmit} />
+
+        <ImageGallery
+          query={query}
+          handleButtonLoadMore={handleButton}
+          nextPage={nextPage}
+          showLargeImg={showLargeImg}
+        />
+
+        {showModal && (
+          <Modal onClose={toggleModal}>
+            <img src={largeImg} width="700" alt={query} />
+          </Modal>
+        )}
+
+        <ToastContainer position="top-center" />
+      </div>
+    );
+  }
 }
-
-export default App;
