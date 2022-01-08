@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import s from './ImageGalleryItem.module.css';
 
 export const ImageGalleryItem = ({ img, largeImg, query, showLargeImg }) => (
@@ -10,3 +12,10 @@ export const ImageGalleryItem = ({ img, largeImg, query, showLargeImg }) => (
     />
   </li>
 );
+
+ImageGalleryItem.propTypes = {
+  img: PropTypes.string.isRequired,
+  largeImg: PropTypes.string,
+  query: PropTypes.string,
+  showLargeImg: PropTypes.func,
+};

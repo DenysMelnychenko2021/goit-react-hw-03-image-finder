@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import s from './ImageGallery.module.css';
 
 import { ImageGalleryItem } from 'components/imageGalleryItem';
@@ -9,6 +10,13 @@ import API from 'services/imagesApi';
 import { getScroll } from 'services/getScroll';
 
 export class ImageGallery extends Component {
+  static propTypes = {
+    query: PropTypes.string.isRequired,
+    handleButtonLoadMore: PropTypes.func.isRequired,
+    nextPage: PropTypes.number.isRequired,
+    showLargeImg: PropTypes.func.isRequired,
+  };
+
   state = {
     hits: [],
     initialPage: 1,

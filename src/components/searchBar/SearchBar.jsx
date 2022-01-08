@@ -1,8 +1,11 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import { BsSearch } from 'react-icons/bs';
 import { toast } from 'react-toastify';
 
 export class SearchBar extends Component {
+  static propTypes = { submitFormFinder: PropTypes.func.isRequired };
+
   state = {
     search: '',
   };
